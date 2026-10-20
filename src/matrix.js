@@ -27,18 +27,21 @@ function validateMatrix(matrix) {
     throw new Error('Некоректна матриця');
   }
 
+  const rows = matrix.length;
   const cols = matrix[0].length;
 
   if (cols === 0 || !matrix.every(row => row.length === cols)) {
     throw new Error('Матриця повинна бути прямокутною');
   }
+
+  return { rows, cols };
 }
 
 function add(a, b) {
-  validateMatrix(a);
-  validateMatrix(b);
+  const shapeA = validateMatrix(a);
+  const shapeB = validateMatrix(b);
 
-  if (a.length !== b.length || a[0].length !== b[0].length) {
+  if (shapeA.rows !== shapeB.rows || shapeA.cols !== shapeB.cols) {
     throw new Error('Матриці повинні мати однакові розміри');
   }
 
